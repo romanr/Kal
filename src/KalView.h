@@ -39,17 +39,20 @@
  */
 @interface KalView : UIView
 {
-  UILabel *headerTitleLabel;
-  KalGridView *gridView;
-  UITableView *tableView;
-  UIImageView *shadowView;
-  id<KalViewDelegate> delegate;
-  KalLogic *logic;
+	UILabel *headerTitleLabel;
+	IBOutlet KalGridView *gridView;
+	IBOutlet UITableView *tableView;
+	IBOutlet UIImageView *shadowView;
+	id<KalViewDelegate> delegate;
+	IBOutlet KalLogic *logic;
+	BOOL isNib;
 }
 
 @property (nonatomic, assign) id<KalViewDelegate> delegate;
-@property (nonatomic, readonly) UITableView *tableView;
+@property (nonatomic, readonly) IBOutlet UITableView *tableView;
 @property (nonatomic, readonly) KalDate *selectedDate;
+@property (nonatomic, readonly) KalGridView *gridView;
+
 
 - (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)delegate logic:(KalLogic *)logic;
 - (BOOL)isSliding;
