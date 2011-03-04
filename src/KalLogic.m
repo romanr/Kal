@@ -30,6 +30,10 @@
   return [NSSet setWithObjects:@"baseDate", nil];
 }
 
+- (id)initWithCoder:(NSCoder *)decoder {
+	return [self initForDate:[NSDate date]];
+}
+
 - (id)initForDate:(NSDate *)date
 {
   if ((self = [super init])) {
