@@ -1,0 +1,211 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = D2AAC07D0554694100DB518D /* Kal */;
+		codeSenseManager = 371FB2DA1333E69C0003740A /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					728,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 322177395;
+			PBXWorkspaceStateSaveDate = 322177395;
+		};
+		perUserProjectItems = {
+			371FB2DB1333E6CE0003740A /* PBXTextBookmark */ = 371FB2DB1333E6CE0003740A /* PBXTextBookmark */;
+			371FB2DC1333E6CE0003740A /* PBXTextBookmark */ = 371FB2DC1333E6CE0003740A /* PBXTextBookmark */;
+			371FB2DD1333E6CE0003740A /* PBXTextBookmark */ = 371FB2DD1333E6CE0003740A /* PBXTextBookmark */;
+			371FB2DE1333E6CE0003740A /* PBXTextBookmark */ = 371FB2DE1333E6CE0003740A /* PBXTextBookmark */;
+			371FB2DF1333E6CE0003740A /* PBXTextBookmark */ = 371FB2DF1333E6CE0003740A /* PBXTextBookmark */;
+			371FB2E01333E6CE0003740A /* PBXTextBookmark */ = 371FB2E01333E6CE0003740A /* PBXTextBookmark */;
+			371FB2E11333E6CE0003740A /* PBXTextBookmark */ = 371FB2E11333E6CE0003740A /* PBXTextBookmark */;
+			371FB2E31333E6CE0003740A /* PBXTextBookmark */ = 371FB2E31333E6CE0003740A /* PBXTextBookmark */;
+			371FB3EE1334098D0003740A /* PBXTextBookmark */ = 371FB3EE1334098D0003740A /* PBXTextBookmark */;
+		};
+		sourceControlManager = 371FB2D91333E69C0003740A /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	371FB2D91333E69C0003740A /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = Kal;
+			};
+		};
+	};
+	371FB2DA1333E69C0003740A /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	371FB2DB1333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286211E2D46E00B3CC07 /* KalDataSource.m */;
+		name = "KalDataSource.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 914;
+		vrLoc = 230;
+	};
+	371FB2DC1333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286411E2D46E00B3CC07 /* KalDate.m */;
+		name = "KalDate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 475;
+		vrLoc = 1922;
+	};
+	371FB2DD1333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286811E2D46E00B3CC07 /* KalLogic.m */;
+		name = "KalLogic.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1375;
+		vrLoc = 3001;
+	};
+	371FB2DE1333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286A11E2D46E00B3CC07 /* KalMonthView.m */;
+		name = "KalMonthView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 516;
+		vrLoc = 1867;
+	};
+	371FB2DF1333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286F11E2D46E00B3CC07 /* KalView.m */;
+		name = "KalView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 831;
+		vrLoc = 9129;
+	};
+	371FB2E01333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286E11E2D46E00B3CC07 /* KalView.h */;
+		name = "KalView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 736;
+		vrLoc = 1757;
+	};
+	371FB2E11333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286311E2D46E00B3CC07 /* KalDate.h */;
+		name = "KalDate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 663;
+		vrLoc = 0;
+	};
+	371FB2E31333E6CE0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286111E2D46E00B3CC07 /* KalDataSource.h */;
+		name = "KalDataSource.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 724;
+		vrLoc = 2863;
+	};
+	371FB3EE1334098D0003740A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286111E2D46E00B3CC07 /* KalDataSource.h */;
+		name = "KalDataSource.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 724;
+		vrLoc = 2863;
+	};
+	533B286111E2D46E00B3CC07 /* KalDataSource.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {906, 1326}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2863, 724}";
+		};
+	};
+	533B286211E2D46E00B3CC07 /* KalDataSource.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {906, 767}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{230, 914}";
+		};
+	};
+	533B286311E2D46E00B3CC07 /* KalDate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {906, 377}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 663}";
+		};
+	};
+	533B286411E2D46E00B3CC07 /* KalDate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1111, 1365}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1922, 475}";
+		};
+	};
+	533B286811E2D46E00B3CC07 /* KalLogic.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1181, 1924}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{3001, 1375}";
+		};
+	};
+	533B286A11E2D46E00B3CC07 /* KalMonthView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1034, 1313}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1867, 516}";
+		};
+	};
+	533B286E11E2D46E00B3CC07 /* KalView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {906, 1066}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{1757, 736}";
+		};
+	};
+	533B286F11E2D46E00B3CC07 /* KalView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1174, 3432}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{9129, 831}";
+		};
+	};
+	D2AAC07D0554694100DB518D /* Kal */ = {
+		activeExec = 0;
+	};
+}
