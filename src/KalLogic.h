@@ -45,4 +45,5 @@
 - (void)advanceToFollowingMonth;
 - (void)moveToMonthForDate:(NSDate *)date;
 
++ (KalLogic *)sharedLogic;
 @end

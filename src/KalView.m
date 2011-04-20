@@ -20,54 +20,52 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
 @implementation KalView
 
-@synthesize delegate, tableView, gridView;
+@synthesize delegate, tableView, shadowView, gridView;
 
 /*
  - (id)initWithCoder:(NSCoder *)aDecoder { 
  return [self initWithFrame:self.frame delegate:delegate logic:logic]; 
  }*/
-- (void)awakeFromNib {
-	[super awakeFromNib];
-	
-	isNib = YES;
-	if (!logic || !delegate) {
-		NSLog(@"KalView doesn't have a logic or delegate!");
-	}
-	else
-		[logic addObserver:self forKeyPath:@"selectedMonthNameAndYear" options:NSKeyValueObservingOptionNew context:NULL];
-    self.autoresizesSubviews = YES;
-    //self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+- (void)finalizeInit {
+	[[KalLogic sharedLogic] addObserver:self forKeyPath:@"selectedMonthNameAndYear" options:NSKeyValueObservingOptionNew context:NULL];
+	self.autoresizesSubviews = YES;
     
-	UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 322, kHeaderHeight)] autorelease];
+	CGFloat frameWidth = 0.f;
+	CGFloat frameHeight = 0.f;
+	if (isIpadDevice()) {
+		frameWidth = 322.f;
+		frameHeight = 309.f;
+	}
+	else {
+		frameWidth = self.frame.size.width;
+		frameHeight = self.frame.size.height - kHeaderHeight;
+		self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+	}
+	UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frameWidth, kHeaderHeight)] autorelease];
 	headerView.backgroundColor = [UIColor grayColor];
 	[self addSubviewsToHeaderView:headerView];
 	[self addSubview:headerView];
 	
-	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, 322, 309)] autorelease];
+	UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frameWidth, frameHeight)] autorelease];
 	contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	[self addSubviewsToContentView:contentView];
-	[self addSubview:contentView];	
+	[self addSubview:contentView];		
+}
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	
+	if (!delegate) {
+		NSLog(@"KalView doesn't have a delegate!");
+	}
+	[self finalizeInit];
 }	
 
-- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)theDelegate logic:(KalLogic *)theLogic
+- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)theDelegate
 {
 	if ((self = [super initWithFrame:frame])) {
-		isNib = NO;
 		delegate = theDelegate;
-		logic = [theLogic retain];
-		[logic addObserver:self forKeyPath:@"selectedMonthNameAndYear" options:NSKeyValueObservingOptionNew context:NULL];
-		self.autoresizesSubviews = YES;
-		self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-		
-		UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, kHeaderHeight)] autorelease];
-		headerView.backgroundColor = [UIColor grayColor];
-		[self addSubviewsToHeaderView:headerView];
-		[self addSubview:headerView];
-		
-		UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frame.size.width, frame.size.height - kHeaderHeight)] autorelease];
-		contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-		[self addSubviewsToContentView:contentView];
-		[self addSubview:contentView];
+		[self finalizeInit];
 	}
 	
 	return self;
@@ -75,7 +73,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
 - (id)initWithFrame:(CGRect)frame
 {
-	[NSException raise:@"Incomplete initializer" format:@"KalView must be initialized with a delegate and a KalLogic. Use the initWithFrame:delegate:logic: method."];
+	delegate = nil;
+	[NSException raise:@"Incomplete initializer" format:@"KalView must be initialized with a delegate. Use the initWithFrame:delegate method."];
 	return nil;
 }
 
@@ -86,14 +85,17 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
 - (void)showPreviousMonth
 {
-	if (!gridView.transitioning)
-		[delegate showPreviousMonth];
+	if (!gridView.transitioning) {
+		if (delegate && [delegate respondsToSelector:@selector(showPreviousMonth)])
+			[delegate performSelector:@selector(showPreviousMonth)];
+	}
 }
 
 - (void)showFollowingMonth
 {
 	if (!gridView.transitioning)
-		[delegate showFollowingMonth];
+		if (delegate && [delegate respondsToSelector:@selector(showFollowingMonth)])
+			[delegate performSelector:@selector(showFollowingMonth)];
 }
 
 - (void)addSubviewsToHeaderView:(UIView *)theHeader
@@ -136,7 +138,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
 	headerTitleLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_header_text_fill.png"]];
 	headerTitleLabel.shadowColor = [UIColor whiteColor];
 	headerTitleLabel.shadowOffset = CGSizeMake(0.f, 1.f);
-	[self setHeaderTitleText:[logic selectedMonthNameAndYear]];
+	[self setHeaderTitleText:[[KalLogic sharedLogic] selectedMonthNameAndYear]];
 	[theHeader addSubview:headerTitleLabel];
 	
 	// Create the next month button on the right side of the view
@@ -179,23 +181,23 @@ static const CGFloat kMonthLabelHeight = 17.f;
 	CGRect fullWidthAutomaticLayoutFrame = CGRectMake(0.f, 0.f, 322, 0.f);
 	
 	// The tile grid (the calendar body)
-	gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrame logic:logic delegate:delegate];
+	gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrame delegate:delegate];
 	[gridView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
 	[contentView addSubview:gridView];
 	
 	// The list of events for the selected day
-	if (!tableView) {
-		tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrame style:UITableViewStylePlain];
-		tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		[contentView addSubview:tableView];
+	if (!self.tableView) {
+		self.tableView = [[[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrame style:UITableViewStylePlain] autorelease];
+		self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		[contentView addSubview:self.tableView];
 	}
 	
 	// Drop shadow below tile grid and over the list of events for the selected day
-	if (!shadowView) {
-		shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame];
-		shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
-		shadowView.height = shadowView.image.size.height;
-		[contentView addSubview:shadowView];
+	if (!self.shadowView) {
+		self.shadowView = [[[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame] autorelease];
+		self.shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
+		self.shadowView.height = shadowView.image.size.height;
+		[contentView addSubview:self.shadowView];
 	}
 	
 	// Trigger the initial KVO update to finish the contentView layout
@@ -216,17 +218,16 @@ static const CGFloat kMonthLabelHeight = 17.f;
 		 * tableView here, I do not need to wrap it in a
 		 * [UIView beginAnimations:context:].
 		 */
-		if (isNib) {
-			shadowView.height = kHeaderHeight + gridView.top + gridView.height;
+		if (isIpadDevice()) {
+			self.shadowView.height = kHeaderHeight + gridView.top + gridView.height;
 		}
 		else {
 			CGFloat gridBottom = gridView.top + gridView.height;
-			CGRect frame = tableView.frame;
+			CGRect frame = self.tableView.frame;
 			frame.origin.y = gridBottom;
 			frame.size.height = tableView.superview.height - gridBottom;
-			tableView.frame = frame;
-			shadowView.top = gridBottom;
-			
+			self.tableView.frame = frame;
+			self.shadowView.top = gridBottom;
 		}
 		
 	} else if ([keyPath isEqualToString:@"selectedMonthNameAndYear"]) {
@@ -240,7 +241,7 @@ static const CGFloat kMonthLabelHeight = 17.f;
 - (void)setHeaderTitleText:(NSString *)text
 {
 	[headerTitleLabel setText:text];
-	if (!isNib) {
+	if (!isIpadDevice()) {
 		[headerTitleLabel sizeToFit];
 		headerTitleLabel.left = floorf(self.width/2.f - headerTitleLabel.width/2.f);
 	}
@@ -258,16 +259,13 @@ static const CGFloat kMonthLabelHeight = 17.f;
 
 - (void)dealloc
 {
-	[logic removeObserver:self forKeyPath:@"selectedMonthNameAndYear"];
+	[[KalLogic sharedLogic] removeObserver:self forKeyPath:@"selectedMonthNameAndYear"];
 	[gridView removeObserver:self forKeyPath:@"frame"];
 	
 	[headerTitleLabel release];
 	[gridView release];
-	if (!isNib) {
-		[logic release];
-		[tableView release];
-		[shadowView release];
-	}
+	self.tableView = nil;
+	self.shadowView = nil;
 	[super dealloc];
 }
 
