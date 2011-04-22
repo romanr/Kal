@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370760F6135F519D007B6BFD /* KalPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 370760F5135F519D007B6BFD /* KalPrivate.m */; };
 		533B287611E2D46E00B3CC07 /* Kal.h in Headers */ = {isa = PBXBuildFile; fileRef = 533B286011E2D46E00B3CC07 /* Kal.h */; };
 		533B287711E2D46E00B3CC07 /* KalDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 533B286111E2D46E00B3CC07 /* KalDataSource.h */; };
 		533B287811E2D46E00B3CC07 /* KalDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 533B286211E2D46E00B3CC07 /* KalDataSource.m */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		370760F5135F519D007B6BFD /* KalPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KalPrivate.m; sourceTree = "<group>"; };
 		533B285F11E2D46E00B3CC07 /* Kal.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Kal.bundle; sourceTree = "<group>"; };
 		533B286011E2D46E00B3CC07 /* Kal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kal.h; sourceTree = SOURCE_ROOT; };
 		533B286111E2D46E00B3CC07 /* KalDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KalDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -118,6 +120,7 @@
 				533B286911E2D46E00B3CC07 /* KalMonthView.h */,
 				533B286A11E2D46E00B3CC07 /* KalMonthView.m */,
 				533B286B11E2D46E00B3CC07 /* KalPrivate.h */,
+				370760F5135F519D007B6BFD /* KalPrivate.m */,
 				533B286C11E2D46E00B3CC07 /* KalTileView.h */,
 				533B286D11E2D46E00B3CC07 /* KalTileView.m */,
 				533B286E11E2D46E00B3CC07 /* KalView.h */,
@@ -230,6 +233,7 @@
 				533B288711E2D46E00B3CC07 /* KalViewController.m in Sources */,
 				533B288911E2D46E00B3CC07 /* NSDateAdditions.m in Sources */,
 				533B288B11E2D46E00B3CC07 /* UIViewAdditions.m in Sources */,
+				370760F6135F519D007B6BFD /* KalPrivate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
