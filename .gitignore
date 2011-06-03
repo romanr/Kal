@@ -2,3 +2,6 @@ src/build/
 Examples/Holiday/build/
 Examples/NativeCal/build/
 
+
+*.mode1v3
+*.pbxuser

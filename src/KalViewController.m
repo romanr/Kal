@@ -30,12 +30,8 @@ void mach_absolute_difference(uint64_t end, uint64_t start, struct timespec *tp)
 
 NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotification";
 
-@interface KalViewController ()
-- (KalView*)calendarView;
-@end
-
 @implementation KalViewController
-
+@synthesize calendarView;
 @synthesize dataSource, delegate;
 
 /*- (id)initWithCoder:(NSCoder *)aDecoder { 
@@ -44,7 +40,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	if (!initialSelectedDate)
-		initialSelectedDate = [[NSDate date] retain];	
+		initialSelectedDate = [[NSDate date] retain];		
 }
 
 - (id)initWithSelectedDate:(NSDate *)selectedDate
@@ -61,7 +57,14 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 	return [self initWithSelectedDate:[NSDate date]];
 }
 
-- (KalView*)calendarView { return (KalView*)self.view; }
+- (KalView*)calendarView { 
+	if (!calendarView) {
+		if (self.view && [self.view isKindOfClass:[KalView class]]) {
+			calendarView = (KalView *)self.view;
+		}
+	}
+	return calendarView;
+}
 
 - (KalLogic*)logic {
 	return [KalLogic sharedLogic];
@@ -226,10 +229,13 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)dealloc
 {
-	[initialSelectedDate release];
-	if (tableView)
+	if (initialSelectedDate) {
+		[initialSelectedDate release];
+	}
+	if (tableView) {
 		[tableView release];
-	
+	}
+	self.calendarView = nil;	
 	[super dealloc];
 }
 

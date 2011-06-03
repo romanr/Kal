@@ -23,6 +23,7 @@
  */
 @interface KalViewController : UIViewController <KalViewDelegate, KalDataSourceCallbacks>
 {
+	IBOutlet KalView *calendarView;
 	IBOutlet UITableView *tableView;
 	id <UITableViewDelegate> delegate;
 	id <KalDataSource> dataSource;
@@ -32,7 +33,7 @@
 @property (nonatomic, assign) IBOutlet id<UITableViewDelegate> delegate;
 @property (nonatomic, assign) id<KalDataSource> dataSource;
 @property (nonatomic, readonly) KalLogic *logic;
-@property (nonatomic, readonly) KalView *calendarView;
+@property (nonatomic, assign) IBOutlet KalView *calendarView;
 
 - (id)initWithSelectedDate:(NSDate *)selectedDate;  // designated initializer. When the calendar is first displayed to the user, the month that contains 'selectedDate' will be shown and the corresponding tile for 'selectedDate' will be automatically selected.
 - (void)reloadData;                                 // If you change the KalDataSource after the KalViewController has already been displayed to the user, you must call this method in order for the view to reflect the new data.
