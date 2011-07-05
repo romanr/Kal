@@ -14,6 +14,9 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application
 {
+	NSLocale *currentUsersLocale = [NSLocale currentLocale];
+	NSLog(@"Current Locale: %@", [currentUsersLocale localeIdentifier]);
+
   /*
    *    Kal Initialization
    *
@@ -23,7 +26,7 @@
    */
 	if (!kal)
 		kal = [[KalViewController alloc] init];
-  kal.title = @"Holidays";
+  kal.title = NSLocalizedString(@"Holidays", @"Window title");
 
   /*
    *    Kal Configuration

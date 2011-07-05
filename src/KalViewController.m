@@ -193,7 +193,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
 	
 	if (!self.title && isIpadDevice())
-		self.title = @"Calendar";
+		self.title = NSLocalizedString(@"Calendar", @"");
 	
 	if (!tableView && self.calendarView.tableView) {
 		tableView = [self.calendarView.tableView retain];
