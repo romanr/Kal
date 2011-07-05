@@ -1,7 +1,4 @@
-src/build/
-Examples/Holiday/build/
-Examples/NativeCal/build/
-
-
+build
 *.mode1v3
 *.pbxuser
+xcuserdata
