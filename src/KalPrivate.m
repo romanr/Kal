@@ -8,7 +8,7 @@
 
 #import "KalPrivate.h"
 
-BOOL isIpadDevice() {
+ BOOL isIpadDevice(void) {
 	static BOOL hasCheckediPadStatus = NO;
 	static BOOL isRunningOniPad = NO;
 	

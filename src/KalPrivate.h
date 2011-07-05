@@ -6,4 +6,4 @@
 #import "UIViewAdditions.h"
 #import "NSDateAdditions.h"
 
-BOOL isIpadDevice();
+BOOL isIpadDevice(void);
