@@ -45,8 +45,9 @@
   
   // Setup the navigation stack and display it.
   //navController = [[UINavigationController alloc] initWithRootViewController:kal];
-  [window addSubview:kal.view];
-  [window makeKeyAndVisible];
+  //window.rootViewController = navController;
+
+	[window makeKeyAndVisible];
 }
 
 // Action handler for the navigation bar's right bar button item.
