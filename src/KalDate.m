@@ -34,6 +34,8 @@ static KalDate *today;
 
 + (KalDate *)dateFromNSDate:(NSDate *)date
 {
+	if (!date || [[NSNull null] isEqual:date])
+		date = [NSDate date];
   NSDateComponents *parts = [date cc_componentsForMonthDayAndYear];
   return [KalDate dateForDay:[parts day] month:[parts month] year:[parts year]];
 }

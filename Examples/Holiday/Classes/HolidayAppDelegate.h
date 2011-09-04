@@ -32,7 +32,7 @@
 {
   UIWindow *window;
   UINavigationController *navController;
-  KalViewController *kal;
+  IBOutlet KalViewController *kal;
   id dataSource;
 }
 

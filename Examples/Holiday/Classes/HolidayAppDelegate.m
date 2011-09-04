@@ -14,6 +14,9 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application
 {
+	NSLocale *currentUsersLocale = [NSLocale currentLocale];
+	NSLog(@"Current Locale: %@", [currentUsersLocale localeIdentifier]);
+
   /*
    *    Kal Initialization
    *
@@ -21,8 +24,9 @@
    * If your application requires an arbitrary starting date, use -[KalViewController initWithSelectedDate:]
    * instead of -[KalViewController init].
    */
-  kal = [[KalViewController alloc] init];
-  kal.title = @"Holidays";
+	if (!kal)
+		kal = [[KalViewController alloc] init];
+  kal.title = NSLocalizedString(@"Holidays", @"Window title");
 
   /*
    *    Kal Configuration
@@ -33,15 +37,17 @@
    * from a local Sqlite database. For this demo, I am going to set it up to just use
    * the Sqlite database.
    */
-  kal.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(showAndSelectToday)] autorelease];
+  //kal.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Today" style:UIBarButtonItemStyleBordered target:self action:@selector(showAndSelectToday)] autorelease];
   kal.delegate = self;
   dataSource = [[HolidaySqliteDataSource alloc] init];
   kal.dataSource = dataSource;
+
   
   // Setup the navigation stack and display it.
-  navController = [[UINavigationController alloc] initWithRootViewController:kal];
-  [window addSubview:navController.view];
-  [window makeKeyAndVisible];
+  //navController = [[UINavigationController alloc] initWithRootViewController:kal];
+  //window.rootViewController = navController;
+
+	[window makeKeyAndVisible];
 }
 
 // Action handler for the navigation bar's right bar button item.

@@ -29,9 +29,9 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
 @implementation KalGridView
 
-@synthesize selectedTile, highlightedTile, transitioning;
+@synthesize selectedTile, highlightedTile, transitioning, delegate = mDelegate;
 
-- (id)initWithFrame:(CGRect)frame logic:(KalLogic *)theLogic delegate:(id<KalViewDelegate>)theDelegate
+- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)theDelegate
 {
   // MobileCal uses 46px wide tiles, with a 2px inner stroke 
   // along the top and right edges. Since there are 7 columns,
@@ -45,8 +45,7 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   
   if (self = [super initWithFrame:frame]) {
     self.clipsToBounds = YES;
-    logic = theLogic;
-    delegate = theDelegate;
+    mDelegate = theDelegate;
     
     CGRect monthRect = CGRectMake(0.f, 0.f, frame.size.width, frame.size.height);
     frontMonthView = [[KalMonthView alloc] initWithFrame:monthRect];
@@ -58,6 +57,15 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
     [self jumpToSelectedMonth];
   }
   return self;
+}
+
+- (id<KalViewDelegate>) delegate {
+	if (!mDelegate || ![mDelegate conformsToProtocol:@protocol(KalViewDelegate)]) {
+		if (self.superview && [self.superview isKindOfClass:[KalView class]]) {
+			mDelegate = [self.superview performSelector:@selector(delegate)];
+		}
+	}
+	return mDelegate;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -94,8 +102,10 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
     selectedTile.selected = NO;
     selectedTile = tile;
     tile.selected = YES;
-    [delegate didSelectDate:tile.date];
   }
+
+  if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectDate:)])
+    [self.delegate performSelector:@selector(didSelectDate:) withObject:tile.date];
 }
 
 - (void)receivedTouches:(NSSet *)touches withEvent:event
@@ -137,10 +147,12 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   if ([hitView isKindOfClass:[KalTileView class]]) {
     KalTileView *tile = (KalTileView*)hitView;
     if (tile.belongsToAdjacentMonth) {
-      if ([tile.date compare:[KalDate dateFromNSDate:logic.baseDate]] == NSOrderedDescending) {
-        [delegate showFollowingMonth];
+      if ([tile.date compare:[KalDate dateFromNSDate:[KalLogic sharedLogic].baseDate]] == NSOrderedDescending) {
+		  if (self.delegate && [self.delegate respondsToSelector:@selector(showFollowingMonth)])
+			  [self.delegate performSelector:@selector(showFollowingMonth)];
       } else {
-        [delegate showPreviousMonth];
+		  if (self.delegate && [self.delegate respondsToSelector:@selector(showPreviousMonth)])
+			  [self.delegate performSelector:@selector(showPreviousMonth)];
       }
       self.selectedTile = [frontMonthView tileForDate:tile.date];
     } else {
@@ -193,18 +205,18 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 - (void)slide:(int)direction
 {
   transitioning = YES;
-  
-  [backMonthView showDates:logic.daysInSelectedMonth
-      leadingAdjacentDates:logic.daysInFinalWeekOfPreviousMonth
-     trailingAdjacentDates:logic.daysInFirstWeekOfFollowingMonth];
+	KalLogic *theLogic = [KalLogic sharedLogic];
+  [backMonthView showDates:theLogic.daysInSelectedMonth
+      leadingAdjacentDates:theLogic.daysInFinalWeekOfPreviousMonth
+     trailingAdjacentDates:theLogic.daysInFirstWeekOfFollowingMonth];
   
   // At this point, the calendar logic has already been advanced or retreated to the
   // following/previous month, so in order to determine whether there are 
   // any cells to keep, we need to check for a partial week in the month
   // that is sliding offscreen.
   
-  BOOL keepOneRow = (direction == SLIDE_UP && [logic.daysInFinalWeekOfPreviousMonth count] > 0)
-                 || (direction == SLIDE_DOWN && [logic.daysInFirstWeekOfFollowingMonth count] > 0);
+  BOOL keepOneRow = (direction == SLIDE_UP && [theLogic.daysInFinalWeekOfPreviousMonth count] > 0)
+                 || (direction == SLIDE_DOWN && [theLogic.daysInFirstWeekOfFollowingMonth count] > 0);
   
   [self swapMonthsAndSlide:direction keepOneRow:keepOneRow];
   
@@ -245,6 +257,5 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 - (KalDate *)selectedDate { return selectedTile.date; }
 
 #pragma mark -
-
 
 @end

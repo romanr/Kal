@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class KalTileView, KalMonthView, KalLogic, KalDate;
+@class KalTileView, KalMonthView, KalDate;
 @protocol KalViewDelegate;
 
 /*
@@ -20,8 +20,7 @@
  */
 @interface KalGridView : UIView
 {
-  id<KalViewDelegate> delegate;  // Assigned.
-  KalLogic *logic;
+  id<KalViewDelegate> __unsafe_unretained mDelegate;  // Assigned.
   KalMonthView *frontMonthView;
   KalMonthView *backMonthView;
   KalTileView *selectedTile;
@@ -31,8 +30,9 @@
 
 @property (nonatomic, readonly) BOOL transitioning;
 @property (unsafe_unretained, nonatomic, readonly) KalDate *selectedDate;
+@property (nonatomic, unsafe_unretained) id<KalViewDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame logic:(KalLogic *)logic delegate:(id<KalViewDelegate>)delegate;
+- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)delegate;
 - (void)selectDate:(KalDate *)date;
 - (void)markTilesForDates:(NSArray *)dates;
 

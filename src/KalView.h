@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class KalGridView, KalLogic, KalDate;
+@class KalGridView, KalDate;
 @protocol KalViewDelegate, KalDataSourceCallbacks;
 
 /*
@@ -44,17 +44,16 @@
 	IBOutlet UITableView *tableView;
 	IBOutlet UIImageView *shadowView;
 	id<KalViewDelegate> __unsafe_unretained delegate;
-	IBOutlet KalLogic *logic;
 	BOOL isNib;
 }
 
 @property (nonatomic, unsafe_unretained) id<KalViewDelegate> delegate;
 @property (nonatomic, readonly) IBOutlet UITableView *tableView;
 @property (unsafe_unretained, nonatomic, readonly) KalDate *selectedDate;
+@property (nonatomic, retain) UIImageView *shadowView;
 @property (nonatomic, readonly) KalGridView *gridView;
 
-
-- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)delegate logic:(KalLogic *)logic;
+- (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)delegate;
 - (BOOL)isSliding;
 - (void)selectDate:(KalDate *)date;
 - (void)markTilesForDates:(NSArray *)dates;
@@ -72,7 +71,7 @@
 
 @class KalDate;
 
-@protocol KalViewDelegate
+@protocol KalViewDelegate <NSObject>
 
 - (void)showPreviousMonth;
 - (void)showFollowingMonth;

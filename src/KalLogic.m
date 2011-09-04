@@ -25,9 +25,22 @@
 
 @synthesize baseDate, fromDate, toDate, daysInSelectedMonth, daysInFinalWeekOfPreviousMonth, daysInFirstWeekOfFollowingMonth;
 
++ (id)sharedLogic
+{
+	static dispatch_once_t pred;
+	static KalLogic *theLogic = nil;
+	
+	dispatch_once(&pred, ^{ theLogic = [[self alloc] init]; });
+	return theLogic;
+}
+
 + (NSSet *)keyPathsForValuesAffectingSelectedMonthNameAndYear
 {
   return [NSSet setWithObjects:@"baseDate", nil];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+	return [self initForDate:[NSDate date]];
 }
 
 - (id)initForDate:(NSDate *)date
