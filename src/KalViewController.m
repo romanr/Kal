@@ -46,7 +46,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 	wasNibLoaded = YES;
 	wasViewNibLoaded = YES;
 	if (!initialSelectedDate)
-		initialSelectedDate = [[NSDate date] retain];
+		initialSelectedDate = [NSDate date];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
 	
@@ -58,7 +58,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 		wasNibLoaded = NO;
 		wasViewNibLoaded = NO;
 		logic = [[KalLogic alloc] initForDate:selectedDate];
-		initialSelectedDate = [selectedDate retain];
+		initialSelectedDate = selectedDate;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:KalDataSourceChangedNotification object:nil];
 	}
@@ -140,7 +140,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 - (void)loadedDataSource:(id<KalDataSource>)theDataSource;
 {
 	NSArray *markedDates = [theDataSource markedDatesFrom:logic.fromDate to:logic.toDate];
-	NSMutableArray *dates = [[markedDates mutableCopy] autorelease];
+	NSMutableArray *dates = [markedDates mutableCopy];
 	for (int i=0; i<[dates count]; i++)
 		[dates replaceObjectAtIndex:i withObject:[KalDate dateFromNSDate:[dates objectAtIndex:i]]];
 	
@@ -193,19 +193,17 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 		self.title = @"Calendar";
 	
 	if (!initialSelectedDate)
-		initialSelectedDate = [[NSDate date] retain];
+		initialSelectedDate = [NSDate date];
 	
 	if (!logic)
-		logic = [[[KalLogic alloc] initForDate:initialSelectedDate] retain];
+		logic = [[KalLogic alloc] initForDate:initialSelectedDate];
 
 	KalView *kalView = [[KalView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame] delegate:self logic:logic];
 	self.view = kalView;
 	tableView = kalView.tableView;
 	tableView.dataSource = dataSource;
 	tableView.delegate = delegate;
-	[tableView retain];
 	[kalView selectDate:[KalDate dateFromNSDate:initialSelectedDate]];
-	[kalView release];
 	[self reloadData];
 }
 
@@ -227,12 +225,6 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationSignificantTimeChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:KalDataSourceChangedNotification object:nil];
-	[initialSelectedDate release];
-	if (!wasNibLoaded)
-		[logic release];
-	if (!wasViewNibLoaded)
-		[tableView release];
-	[super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation { 	

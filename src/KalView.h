@@ -43,14 +43,14 @@
 	IBOutlet KalGridView *gridView;
 	IBOutlet UITableView *tableView;
 	IBOutlet UIImageView *shadowView;
-	id<KalViewDelegate> delegate;
+	id<KalViewDelegate> __unsafe_unretained delegate;
 	IBOutlet KalLogic *logic;
 	BOOL isNib;
 }
 
-@property (nonatomic, assign) id<KalViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<KalViewDelegate> delegate;
 @property (nonatomic, readonly) IBOutlet UITableView *tableView;
-@property (nonatomic, readonly) KalDate *selectedDate;
+@property (unsafe_unretained, nonatomic, readonly) KalDate *selectedDate;
 @property (nonatomic, readonly) KalGridView *gridView;
 
 

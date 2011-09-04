@@ -95,7 +95,6 @@ extern const CGSize kTileSize;
   frame.size = kTileSize;
   self.frame = frame;
   
-  [date release];
   date = nil;
   flags.type = KalTileTypeRegular;
   flags.highlighted = NO;
@@ -108,8 +107,7 @@ extern const CGSize kTileSize;
   if (date == aDate)
     return;
 
-  [date release];
-  date = [aDate retain];
+  date = aDate;
 
   [self setNeedsDisplay];
 }
@@ -190,10 +188,5 @@ extern const CGSize kTileSize;
 
 - (BOOL)belongsToAdjacentMonth { return flags.type == KalTileTypeAdjacent; }
 
-- (void)dealloc
-{
-  [date release];
-  [super dealloc];
-}
 
 @end

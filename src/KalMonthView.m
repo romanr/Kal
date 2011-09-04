@@ -24,7 +24,7 @@ extern const CGSize kTileSize;
     for (int i=0; i<6; i++) {
       for (int j=0; j<7; j++) {
         CGRect r = CGRectMake(j*kTileSize.width, i*kTileSize.height, kTileSize.width, kTileSize.height);
-        [self addSubview:[[[KalTileView alloc] initWithFrame:r] autorelease]];
+        [self addSubview:[[KalTileView alloc] initWithFrame:r]];
       }
     }
   }
