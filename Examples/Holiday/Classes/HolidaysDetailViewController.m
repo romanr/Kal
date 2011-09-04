@@ -11,24 +11,19 @@
 - (id)initWithHoliday:(Holiday *)aHoliday
 {
   if ((self = [super init])) {
-    holiday = [aHoliday retain];
+    holiday = aHoliday;
   }
   return self;
 }
 
 - (void)loadView
 {
-  UILabel *label = [[[UILabel alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
+  UILabel *label = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
   label.text = [NSString stringWithFormat:@"%@ - %@", holiday.country, holiday.name];
   label.textAlignment = UITextAlignmentCenter;
   self.view = label;
 }
 
-- (void)dealloc
-{
-  [holiday release];
-  [super dealloc];
-}
 
 
 @end

@@ -22,7 +22,7 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
 
 + (HolidayJSONDataSource *)dataSource
 {
-  return [[[[self class] alloc] init] autorelease];
+  return [[[self class] alloc] init];
 }
 
 - (id)init
@@ -47,7 +47,7 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
   static NSString *identifier = @"MyCell";
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
   if (!cell) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
   }
@@ -87,12 +87,12 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-  NSString *str = [[[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding] autorelease];
+  NSString *str = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
   NSArray *array = [str JSONValue];
   if (!array)
     return;
   
-  NSDateFormatter *fmt = [[[NSDateFormatter alloc] init] autorelease];
+  NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
   [fmt setDateFormat:@"yyyy-MM-dd"];
   for (NSDictionary *dict in array) {
     NSDate *d = [fmt dateFromString:[dict objectForKey:@"date"]];
@@ -161,12 +161,5 @@ static BOOL IsDateBetweenInclusive(NSDate *date, NSDate *begin, NSDate *end)
   return matches;
 }
 
-- (void)dealloc
-{
-  [items release];
-  [holidays release];
-  [buffer release];
-  [super dealloc];
-}
 
 @end

@@ -11,7 +11,7 @@
 
 + (Holiday*)holidayNamed:(NSString *)aName country:(NSString *)aCountry date:(NSDate *)aDate;
 {
-  return [[[Holiday alloc] initWithName:aName country:aCountry date:aDate] autorelease];
+  return [[Holiday alloc] initWithName:aName country:aCountry date:aDate];
 }
 
 - (id)initWithName:(NSString *)aName country:(NSString *)aCountry date:(NSDate *)aDate
@@ -19,7 +19,7 @@
   if ((self = [super init])) {
     name = [aName copy];
     country = [aCountry copy];
-    date = [aDate retain];
+    date = aDate;
   }
   return self;
 }
@@ -33,12 +33,5 @@
     return comparison;
 }
 
-- (void)dealloc
-{
-  [date release];
-  [name release];
-  [country release];
-  [super dealloc];
-}
 
 @end

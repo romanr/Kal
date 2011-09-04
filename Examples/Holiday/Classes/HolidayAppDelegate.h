@@ -36,6 +36,6 @@
   id dataSource;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
 @end

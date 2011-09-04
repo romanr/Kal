@@ -298,7 +298,6 @@ static char ctrl[0x22];
                                             freeWhenDone:NO];
             if (t) {
                 [*o appendString:t];
-                [t release];
                 c += len;
             }
         }
@@ -453,10 +452,10 @@ static char ctrl[0x22];
         skipDigits(c);
     }
     
-    id str = [[[NSString alloc] initWithBytesNoCopy:(char*)ns
+    id str = [[NSString alloc] initWithBytesNoCopy:(char*)ns
                                             length:c - ns
                                           encoding:NSUTF8StringEncoding
-                                      freeWhenDone:NO] autorelease];
+                                      freeWhenDone:NO];
     if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
         return YES;
     

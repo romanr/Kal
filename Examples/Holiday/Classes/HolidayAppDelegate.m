@@ -62,19 +62,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   Holiday *holiday = [dataSource holidayAtIndexPath:indexPath];
-  HolidaysDetailViewController *vc = [[[HolidaysDetailViewController alloc] initWithHoliday:holiday] autorelease];
+  HolidaysDetailViewController *vc = [[HolidaysDetailViewController alloc] initWithHoliday:holiday];
   [navController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
 
-- (void)dealloc
-{
-  [kal release];
-  [dataSource release];
-  [window release];
-  [navController release];
-  [super dealloc];
-}
 
 @end
