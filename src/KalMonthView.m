@@ -55,9 +55,9 @@ extern const CGSize kTileSize;
 
 - (void)drawRect:(CGRect)rect
 {
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
-//  CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"Kal.bundle/kal_tile.png"] CGImage]);
-  CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"cal-tile.png"] CGImage]);
+CGContextRef ctx = UIGraphicsGetCurrentContext();
+// CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"Kal.bundle/kal_tile.png"] CGImage]);
+CGContextDrawTiledImage(ctx, (CGRect){CGPointZero,kTileSize}, [[UIImage imageNamed:@"cal-tile.png"] CGImage]);
 }
 
 - (KalTileView *)firstTileOfMonth
@@ -90,6 +90,7 @@ extern const CGSize kTileSize;
 - (void)sizeToFit
 {
   self.height = 1.f + kTileSize.height * numWeeks;
+//?	self.height = kTileSize.height * numWeeks;
 }
 
 - (void)markTilesForDates:(NSArray *)dates

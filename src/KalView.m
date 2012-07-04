@@ -48,15 +48,17 @@ static float kGridTileWidth=43.0;
 		self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	}
 	//NSLog(@"framewidth:%f",frameWidth);
-	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frameWidth, kHeaderHeight)];
-	headerView.backgroundColor = [UIColor grayColor];
-	[self addSubviewsToHeaderView:headerView];
-	[self addSubview:headerView];
+
 	
 	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frameWidth, frameHeight)];
 	contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	[self addSubviewsToContentView:contentView];
-	[self addSubview:contentView];		
+	[self addSubview:contentView];	
+	
+	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frameWidth, kHeaderHeight)];
+	headerView.backgroundColor = [UIColor grayColor];
+	[self addSubviewsToHeaderView:headerView];
+	[self addSubview:headerView];
 }
 
 - (void)awakeFromNib {
@@ -108,9 +110,9 @@ static float kGridTileWidth=43.0;
 - (void)addSubviewsToHeaderView:(UIView *)theHeader
 {
 	const CGFloat kChangeMonthButtonWidth = 46.0f;
-	const CGFloat kChangeMonthButtonHeight = 30.0f;
+	const CGFloat kChangeMonthButtonHeight = 46.0f;
 	const CGFloat kMonthLabelWidth = 200.0f;
-	const CGFloat kHeaderVerticalAdjust = 3.f;
+	const CGFloat kHeaderVerticalAdjust = 6.f;
 	
 	// Header background gradient
 	//UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"]];
@@ -127,36 +129,26 @@ static float kGridTileWidth=43.0;
 	headerBarView.frame = imageFrame;
 	[theHeader addSubview:headerBarView];
 	
-	// Create the previous month button on the left side of the view
-	CGRect previousMonthButtonFrame = CGRectMake(theHeader.left,
-												 kHeaderVerticalAdjust,
-												 kChangeMonthButtonWidth,
-												 kChangeMonthButtonHeight);
-	UIButton *previousMonthButton = [[UIButton alloc] initWithFrame:previousMonthButtonFrame];
-	[previousMonthButton setImage:[UIImage imageNamed:@"cal-prev-month.png"] forState:UIControlStateNormal];
-	previousMonthButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	previousMonthButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	[previousMonthButton addTarget:self action:@selector(showPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
-	[theHeader addSubview:previousMonthButton];
-	
+		
 	// Draw the selected month name centered and at the top of the view
+
 	CGRect monthLabelFrame = CGRectMake((theHeader.width/2.0f) - (kMonthLabelWidth/2.0f),
 										kHeaderVerticalAdjust,
 										kMonthLabelWidth,
 										kMonthLabelHeight);
 	headerTitleLabel = [[UILabel alloc] initWithFrame:monthLabelFrame];
 	headerTitleLabel.backgroundColor = [UIColor clearColor];
-	headerTitleLabel.font = [UIFont boldSystemFontOfSize:22.f];
+	headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:22.f];
 	headerTitleLabel.textAlignment = UITextAlignmentCenter;
 	headerTitleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_header_text_fill.png"]];
 	headerTitleLabel.shadowColor = [UIColor grayColor];
-	headerTitleLabel.shadowOffset = CGSizeMake(0.f, 1.f);
+	headerTitleLabel.shadowOffset = CGSizeMake(0.f, 0.1f);
 	[self setHeaderTitleText:[[KalLogic sharedLogic] selectedMonthNameAndYear]];
 	[theHeader addSubview:headerTitleLabel];
 	
 	// Create the next month button on the right side of the view
 	CGRect nextMonthButtonFrame = CGRectMake(theHeader.width - kChangeMonthButtonWidth,
-											 kHeaderVerticalAdjust,
+											 0,
 											 kChangeMonthButtonWidth,
 											 kChangeMonthButtonHeight);
 	UIButton *nextMonthButton = [[UIButton alloc] initWithFrame:nextMonthButtonFrame];
@@ -167,6 +159,7 @@ static float kGridTileWidth=43.0;
 	[theHeader addSubview:nextMonthButton];
 	
 	// Add column labels for each weekday (adjusting based on the current locale's first weekday)
+
 	NSArray *weekdayNames = [[[NSDateFormatter alloc] init] shortWeekdaySymbols];
 	NSUInteger firstWeekday = [[NSCalendar currentCalendar] firstWeekday];
 	NSUInteger i = firstWeekday - 1;
@@ -182,6 +175,25 @@ static float kGridTileWidth=43.0;
 		weekdayLabel.text = [[weekdayNames objectAtIndex:i] uppercaseString];
 		[theHeader addSubview:weekdayLabel];
 	}
+
+	
+	
+	// Create the previous month button on the left side of the view
+
+	CGRect previousMonthButtonFrame = CGRectMake(theHeader.left,
+												 0,
+												 kChangeMonthButtonWidth,
+												 kChangeMonthButtonHeight);
+	UIButton *previousMonthButton = [[UIButton alloc] initWithFrame:previousMonthButtonFrame];
+	[previousMonthButton setImage:[UIImage imageNamed:@"cal-prev-month.png"] forState:UIControlStateNormal];
+	previousMonthButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	previousMonthButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	[previousMonthButton addTarget:self action:@selector(showPreviousMonth) forControlEvents:UIControlEventTouchUpInside];
+	[theHeader addSubview:previousMonthButton];
+
+	
+	
+	
 }
 
 - (void)addSubviewsToContentView:(UIView *)contentView

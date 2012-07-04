@@ -70,7 +70,10 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
 - (void)drawRect:(CGRect)rect
 {
-  [[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"] drawInRect:rect];
+//	one large image that spans entire grid
+	return;
+//  [[UIImage imageNamed:@"Kal.bundle/kal_grid_background.png"] drawInRect:rect];
+	[[UIImage imageNamed:@"cal-tile-background.png"] drawInRect:rect];
   [[UIColor colorWithRed:0.63f green:0.65f blue:0.68f alpha:1.f] setFill];
   CGRect line;
   line.origin = CGPointMake(0.f, self.height - 1.f);
@@ -113,8 +116,8 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
   UITouch *touch = [touches anyObject];
   CGPoint location = [touch locationInView:self];
   UIView *hitView = [self hitTest:location withEvent:event];
-  
-  if (!hitView)
+  //prevent sending double event
+  if (!hitView || YES)
     return;
   
   if ([hitView isKindOfClass:[KalTileView class]]) {

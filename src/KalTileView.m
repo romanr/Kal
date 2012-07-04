@@ -29,7 +29,7 @@ extern const CGSize kTileSize;
 {
   CGContextRef ctx = UIGraphicsGetCurrentContext();
   CGFloat fontSize = 24.f;
-  UIFont *font = [UIFont boldSystemFontOfSize:fontSize];
+  UIFont *font = [UIFont fontWithName:@"HelveticaNeue-CondensedBold" size:fontSize];
   UIColor *shadowColor = nil;
   UIColor *textColor = nil;
   UIImage *markerImage = nil;
@@ -39,22 +39,31 @@ extern const CGSize kTileSize;
   CGContextScaleCTM(ctx, 1, -1);
   
   if ([self isToday] && self.selected) {
-	  [[[UIImage imageNamed:@"cal-tile-selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+//	  [[[UIImage imageNamed:@"cal-tile-selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+	  // [[[UIImage imageNamed:@"cal-tile-selected.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0,6, 0, 0)] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+	  
+	 
+	  [[UIImage imageNamed:@"cal-tile-selected.png"]  drawInRect:CGRectMake(0, 0, rect.size.width, rect.size.height)];//CGRectMake(1, -2, kTileSize.width, kTileSize.height-1)];
+	  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
 //    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today_selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
     textColor = [UIColor whiteColor];
-    shadowColor = [UIColor blackColor];
+    shadowColor = [UIColor grayColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_today.png"];
   } else if ([self isToday] && !self.selected) {
 //    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
-	  [[[UIImage imageNamed:@"cal-tile-today.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+//	  [[[UIImage imageNamed:@"cal-tile-today.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+
+	  //[[[UIImage imageNamed:@"cal-tile-today.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
+	  [[UIImage imageNamed:@"cal-tile-today.png"]  drawInRect:CGRectMake(1, -1, kTileSize.width, kTileSize.height)];
+	  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
     textColor = [UIColor whiteColor];
-    shadowColor = [UIColor blackColor];
+    shadowColor = [UIColor grayColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_today.png"];
   } else if (self.selected) {
    // [[[UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
 	 [[[UIImage imageNamed:@"cal-tile-selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
     textColor = [UIColor whiteColor];
-    shadowColor = [UIColor blackColor];
+    shadowColor = [UIColor grayColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_selected.png"];
   } else if (self.belongsToAdjacentMonth) {
     textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_tile_dim_text_fill.png"]];

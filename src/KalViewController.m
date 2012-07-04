@@ -191,6 +191,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 #pragma mark UIViewController
 
 - (void)viewDidLoad {
+
 	[super viewDidLoad];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(significantTimeChangeOccurred) name:UIApplicationSignificantTimeChangeNotification object:nil];
@@ -219,6 +220,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)viewWillAppear:(BOOL)animated
 {
+		NSLog(@" ****************************** app");
 	[super viewWillAppear:animated];
 	[tableView reloadData];
 }
