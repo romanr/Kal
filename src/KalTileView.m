@@ -44,7 +44,7 @@ extern const CGSize kTileSize;
 	  
 	 
 	  [[UIImage imageNamed:@"cal-tile-selected.png"]  drawInRect:CGRectMake(0, 0, rect.size.width, rect.size.height)];//CGRectMake(1, -2, kTileSize.width, kTileSize.height-1)];
-	  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
+//	  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
 //    [[[UIImage imageNamed:@"Kal.bundle/kal_tile_today_selected.png"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
     textColor = [UIColor whiteColor];
     shadowColor = [UIColor grayColor];
@@ -55,7 +55,7 @@ extern const CGSize kTileSize;
 
 	  //[[[UIImage imageNamed:@"cal-tile-today.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)] drawInRect:CGRectMake(0, -1, kTileSize.width+1, kTileSize.height+1)];
 	  [[UIImage imageNamed:@"cal-tile-today.png"]  drawInRect:CGRectMake(1, -1, kTileSize.width, kTileSize.height)];
-	  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
+	//  NSLog(@"draw in rect w %f ,  h %f",kTileSize.width+1,kTileSize.height+2);
     textColor = [UIColor whiteColor];
     shadowColor = [UIColor grayColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_today.png"];
@@ -76,7 +76,7 @@ extern const CGSize kTileSize;
   }
   
   if (flags.marked)
-    [markerImage drawInRect:CGRectMake(21.f, 5.f, 4.f, 5.f)];
+    [markerImage drawInRect:CGRectMake(19.f, 5.f, 4.f, 5.f)];
   
   NSUInteger n = [self.date day];
   NSString *dayText = [NSString stringWithFormat:@"%lu", (unsigned long)n];

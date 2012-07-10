@@ -50,7 +50,7 @@ static float kGridTileWidth=43.0;
 	//NSLog(@"framewidth:%f",frameWidth);
 
 	
-	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frameWidth, frameHeight)];
+	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frameWidth, frameHeight-kHeaderHeight+kMonthLabelHeight)];
 	contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	[self addSubviewsToContentView:contentView];
 	[self addSubview:contentView];	
@@ -63,7 +63,7 @@ static float kGridTileWidth=43.0;
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	
+	NSLog(@"awakeFromNib");
 	if (!delegate) {
 		NSLog(@"KalView doesn't have a delegate!");
 	}
@@ -72,6 +72,7 @@ static float kGridTileWidth=43.0;
 
 - (id)initWithFrame:(CGRect)frame delegate:(id<KalViewDelegate>)theDelegate
 {
+	NSLog(@"initWithFrame");
 	if ((self = [super initWithFrame:frame])) {
 		delegate = theDelegate;
 		[self finalizeInit];

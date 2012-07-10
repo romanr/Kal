@@ -47,7 +47,7 @@
 	BOOL isNib;
 }
 
-@property (nonatomic, unsafe_unretained) id<KalViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id<KalViewDelegate> delegate;
 @property (nonatomic, readonly) IBOutlet UITableView *tableView;
 @property (unsafe_unretained, nonatomic, readonly) KalDate *selectedDate;
 @property (nonatomic, retain) UIImageView *shadowView;

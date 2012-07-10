@@ -117,6 +117,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 	NSDate *from = [selDate cc_dateByMovingToBeginningOfDay];
 	NSDate *to = [selDate cc_dateByMovingToEndOfDay];
 	[self clearTable];
+	[dataSource didSelectDate:[date NSDate]];
 	[dataSource loadItemsFromDate:from toDate:to];
 	[tableView reloadData];
 	[tableView flashScrollIndicators];
@@ -220,8 +221,15 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)viewWillAppear:(BOOL)animated
 {
-		NSLog(@" ****************************** app");
 	[super viewWillAppear:animated];
+	if (!tableView && self.calendarView.tableView) {
+		tableView = self.calendarView.tableView;
+	}
+	if (tableView) {
+		tableView.dataSource = dataSource;
+		tableView.delegate = delegate;
+	}
+	
 	[tableView reloadData];
 }
 
@@ -240,7 +248,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 }
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
+    NSLog(@"memory warning");
     [super didReceiveMemoryWarning];
 }
 

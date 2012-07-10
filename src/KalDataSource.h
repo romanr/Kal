@@ -75,6 +75,7 @@
 - (void)presentingDatesFrom:(NSDate *)fromDate to:(NSDate *)toDate delegate:(id<KalDataSourceCallbacks>)delegate;
 - (NSArray *)markedDatesFrom:(NSDate *)fromDate to:(NSDate *)toDate;
 - (void)loadItemsFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
+- (void)didSelectDate:(NSDate *)date;
 - (void)removeAllItems;
 @end
 

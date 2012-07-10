@@ -33,7 +33,7 @@
 }
 
 @property (nonatomic, unsafe_unretained) IBOutlet id<UITableViewDelegate> delegate;
-@property (nonatomic, unsafe_unretained) id<KalDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) IBOutlet id<KalDataSource> dataSource;
 @property (nonatomic, strong) IBOutlet KalLogic *logic;
 @property (nonatomic, unsafe_unretained) IBOutlet KalView *calendarView;
 

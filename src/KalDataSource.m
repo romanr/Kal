@@ -55,4 +55,7 @@
   // do nothing
 }
 
+-(void)didSelectDate:(NSDate *)date{
+	// do nothing
+}
 @end
