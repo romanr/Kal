@@ -63,7 +63,6 @@ static float kGridTileWidth=43.0;
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	NSLog(@"awakeFromNib");
 	if (!delegate) {
 		NSLog(@"KalView doesn't have a delegate!");
 	}
