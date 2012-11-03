@@ -55,6 +55,9 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
     [self addSubview:frontMonthView];
 
     [self jumpToSelectedMonth];
+	  UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestured:)];
+	  [self addGestureRecognizer:longPress];
+
   }
   return self;
 }
@@ -88,7 +91,26 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
 
 #pragma mark -
 #pragma mark Touches
-
+-(void)longPressGestured:(UIGestureRecognizer *)gestureRecognizer{
+	CGPoint location = [gestureRecognizer locationInView:self];
+	
+	UIView *hitView = [self hitTest:location withEvent:nil];
+	if (!hitView) {
+		return;
+	}
+	if ([hitView isKindOfClass:[KalTileView class]]) {
+		KalTileView *tile = (KalTileView*)hitView;
+		if (tile.belongsToAdjacentMonth) {
+			self.highlightedTile = tile;
+		} else {
+			self.highlightedTile = nil;
+			self.selectedTile = tile;
+		}
+		if (self.delegate && [self.delegate respondsToSelector:@selector(didLongPressDate:)])
+			[self.delegate performSelector:@selector(didLongPressDate:) withObject:tile.date];
+	}
+	
+}
 - (void)setHighlightedTile:(KalTileView *)tile
 {
   if (highlightedTile != tile) {

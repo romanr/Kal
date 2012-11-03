@@ -58,4 +58,7 @@
 -(void)didSelectDate:(NSDate *)date{
 	// do nothing
 }
+- (void)didLongPressDate:(NSDate *)date{
+	
+}
 @end

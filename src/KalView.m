@@ -36,7 +36,7 @@ static float kGridTileWidth=43.0;
 	[[KalLogic sharedLogic] addObserver:self forKeyPath:@"selectedMonthNameAndYear" options:NSKeyValueObservingOptionNew context:NULL];
 	self.autoresizesSubviews = YES;
 	
-        CGFloat frameWidth = 0.f;
+    CGFloat frameWidth = 0.f;
 	CGFloat frameHeight = 0.f;
 	if (isIpadDevice()) {
 		frameWidth = kFrameWidth;//322.f;
@@ -44,10 +44,11 @@ static float kGridTileWidth=43.0;
 	}
 	else {
 		frameWidth = self.frame.size.width;
-		frameHeight = self.frame.size.height - kHeaderHeight;
-		self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+		//self.frame.size.height is size from xib
+		frameHeight = self.frame.size.height - kHeaderHeight+20;
+		//self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	}
-	//NSLog(@"framewidth:%f",frameWidth);
+	//NSLog(@"self.frame.size.height: %f framewidth:%f",self.frame.size.height,frameWidth);
 
 	
 	UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frameWidth, frameHeight-kHeaderHeight+kMonthLabelHeight)];
